@@ -1,35 +1,39 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Ordertable from "../components/Ordertable";
-import { create_order,fetch_orders } from "../../store/actions";
+import { create_order, fetch_orders } from "../../store/actions";
 const Home = () => {
-  const [data, setData] = useState("");
+  const [data, setData] = useState([]);
   const [_id, setId] = useState("");
   const [userId, setuserId] = useState("");
   const [productId, setproductId] = useState("");
-  
+  const { orders } = useSelector((e) => e.orderReducers);
   const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-     const fetch_create_order =  await create_order();
-     console.log(fetch_create_order);
-      console.log(_id,userId,productId)
+      const fetch_create_order = await create_order();
+      console.log(fetch_create_order);
+      console.log(_id, userId, productId);
       alert("Order Created Successfully");
       fetch_order_Data_Table();
     } catch (error) {
       console.log(error);
     }
   };
-  const fetch_order_Data_Table = async() =>
-  {
-   const fetch_order_data = await fetch_orders();
-   dispatch({type:"orderReducers",payload:fetch_order_data})
-  }
-  useEffect(()=>{
-    fetch_order_Data_Table();
-  },[])
+  const fetch_order_Data_Table = async () => {
+    const fetch_order_data = await fetch_orders();
+    setData(fetch_order_data);
+    dispatch({ type: "orderReducers", payload: fetch_order_data });
+  };
+  useEffect(() => {
+    if (orders?.length <= 0) {
+      fetch_order_Data_Table();
+    } else {
+      setData(orders);
+    }
+  }, [orders]);
   return (
     <>
       <div className="flex justify-center items-center w-full h-screen">
@@ -100,7 +104,7 @@ const Home = () => {
           </form>
         </div>
       </div>
-      <Ordertable  _id={_id}userId={userId}productId={productId} />
+      <Ordertable orders={data} />
     </>
   );
 };

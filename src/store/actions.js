@@ -84,6 +84,7 @@ export const fetch_products = async () => {
       }
     );
     console.log(fetch_Products_Data.data.products);
+    return fetch_Products_Data.data.products
   } catch (error) {
     console.log(error);
   }
