@@ -3,7 +3,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Ordertable from "../components/Ordertable";
 import { create_order, fetch_orders } from "../../store/actions";
+
+
 const Home = () => {
+
   const [data, setData] = useState([]);
   const [_id, setId] = useState("");
   const [userId, setuserId] = useState("");
@@ -27,6 +30,7 @@ const Home = () => {
     setData(fetch_order_data);
     dispatch({ type: "orderReducers", payload: fetch_order_data });
   };
+
   useEffect(() => {
     if (orders?.length <= 0) {
       fetch_order_Data_Table();
@@ -34,13 +38,14 @@ const Home = () => {
       setData(orders);
     }
   }, [orders]);
+
   return (
     <>
-      <div className="flex justify-center items-center w-full h-screen">
+      <div className="flex justify-center bg-slate-800 items-center w-full h-screen">
         <div>
           <form
             onSubmit={handleSubmit}
-            class="max-w-sm mx-auto bg-gray-200  p-10"
+            class="max-w-sm mx-auto bg-gray-600  p-10"
           >
             <div class="mb-5">
               <label

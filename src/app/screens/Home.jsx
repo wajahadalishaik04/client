@@ -29,11 +29,11 @@ const Home = () => {
   }, []);
   return (
     <>
-      <div className="flex justify-center items-center w-full h-screen">
+      <div className="flex justify-center bg-slate-800 items-center w-full h-screen">
         <div>
           <form
             onSubmit={handleSubmit}
-            class="max-w-sm mx-auto bg-gray-200  p-10"
+            class="max-w-sm mx-auto bg-gray-600 shadow-md  p-10"
           >
             <div class="mb-5">
               <label
